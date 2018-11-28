@@ -1,0 +1,203 @@
+<!-- By Andy Nguyen -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript Object Oriented Programming - Map Game</title>
+</head>
+<body>
+    <p>Use the console to make the player move "north", "south", "east", or "west" (e.g. move('north'))</p>
+    <p>Type "player.location" to show player's current location on the map.</p>
+    <h4>Instructions:</h4>
+    <p>Deliver the honey to the appropriate home. The location is already listed in your console.</p>
+    <p>Pick up the honey at the bees. To pick up, call the pickUp() function while at the bees location.</p>
+    <p>To drop off the honey, call the drop() function while at the home that needs the honey.</p>
+    <p>Good luck!</p>
+<script>
+var tigger = {
+    character: "Tigger",
+    greet: function(){
+        console.log("'The wonderful thing about Tiggers is Tiggers are wonderful things!'");
+    }
+}
+var pooh = {
+    character: "Winnie the Pooh",
+    greet: function(){
+        console.log("'Do you have any honey?...Oh bother'");
+    }
+}
+var piglet = {
+    character: "Piglet",
+    greet: function(){
+        console.log("'Oh d-d-d-d-dear! I wasn't expecting company!'");
+    }
+}
+var owl = {
+    character: "Owl",
+    greet: function(){
+        console.log("'Hoooo-hoooo. I'm an owl. Welcome to my home.'");
+    }
+}
+var bees = {
+    character: "Bees",
+    greet: function(){
+        console.log("'Buzzzzzzz!'");
+    }
+}
+var rabbit = {
+    character: "Rabbit",
+    greet: function(){
+        console.log("'No time to talk! I got places to be. Later!'");
+    }
+}
+var gopher = {
+    character: "Gopher",
+    greet: function(){
+        console.log("'It's too sunny outside. Let's go back into my gopher hole.'");
+    }
+}
+var crobin = {
+    character: "Christopher Robin",
+    greet: function(){
+        console.log("'Welcome! I'm Christopher Robin. This is my home.'");
+    }
+}
+var kanga = {
+    character: "Kanga",
+    greet: function(){
+        console.log("'Have you seen Roo anywhere? He's always up to no good.'");
+    }
+}
+var eeyore = {
+    character: "Eeyore",
+    greet: function(){
+        console.log("'Sigh...'");
+    }
+}
+var heffalumps = {
+    character: "Heffalumps",
+    greet: function(){
+        console.log("'I'm a heffalump. What are you doing at my home?'");
+    }
+}
+tigger.north = pooh;
+pooh.south = tigger;
+
+piglet.east = pooh;
+pooh.west = piglet;
+
+owl.south = piglet;
+piglet.north = owl;
+
+bees.west = pooh;
+pooh.east = bees;
+
+rabbit.south = bees;
+bees.north = rabbit;
+
+gopher.west = rabbit;
+rabbit.east = gopher;
+
+crobin.east = rabbit;
+rabbit.west = crobin;
+owl.east = crobin;
+crobin.west = owl;
+crobin.south = pooh;
+pooh.north = crobin;
+
+kanga.south = crobin;
+crobin.north = kanga;
+
+eeyore.south = kanga;
+kanga.north = eeyore;
+
+heffalumps.west = eeyore;
+eeyore.east = heffalumps;
+
+var player = {
+    location: tigger,
+    honey: false,
+}
+
+var homes = [tigger, pooh, piglet, owl, rabbit, gopher, crobin, kanga, eeyore, heffalumps]
+
+function pickUp(){
+    if (player.honey == true) {
+        console.log("You already have honey!");
+    } else {
+        if (player.location == bees){
+            player.honey = true;
+            console.log("You've gathered some honey!");
+        } else {
+            console.log("No honey to pick up!");
+        }
+    }
+}
+
+function mission(){
+    needs_honey = homes[Math.floor(homes.length * Math.random())]
+    console.log("Mission: " + needs_honey.character + " is looking for honey! Can you help?")
+    return needs_honey;
+}
+mission()
+
+function drop(){
+    if(player.honey == false){
+        console.log("You have no honey. Pick some up first");
+    } else {
+        if (player.location == needs_honey){
+            console.log("Congratulations! You delivered the honey to", player.location.character + "!");
+            player.honey = false;
+        } else {
+            console.log("Whoops! This isn't the place that needs the honey!")
+        }
+
+    }
+}
+
+function move(direction){
+    if (direction == "north"){
+        if(player.location.north != undefined){
+            console.log("You were at", player.location.character + "'s", "house.")
+            player.location = player.location.north
+            console.log("You are now at", player.location.character + "'s", "house.")
+            player.location.greet();
+        } else {
+            console.log ("You may not go that way!")
+        }
+    } else if (direction == "south"){
+        if(player.location.south != undefined){
+            console.log("You were at", player.location.character + "'s", "house.")
+            player.location = player.location.south
+            console.log("You are now at", player.location.character + "'s", "house.")
+            player.location.greet();
+        } else {
+            console.log ("You may not go that way!")
+        }
+    } else if (direction == "east"){
+        if(player.location.east != undefined){
+            console.log("You were at", player.location.character + "'s", "house.")
+            player.location = player.location.east
+            console.log("You are now at", player.location.character + "'s", "house.")
+            player.location.greet();
+        } else {
+            console.log ("You may not go that way!")
+        }
+    } else if (direction == "west"){
+        if(player.location.west != undefined){
+            console.log("You were at", player.location.character + "'s", "house.")
+            player.location = player.location.west
+            console.log("You are now at", player.location.character + "'s", "house.")
+            player.location.greet();
+        } else {
+            console.log ("You may not go that way!")
+        }
+    } else {
+        console.log("Can only input 'north', 'south', 'east', or 'west'. Please try again.")
+    }
+}
+</script>
+</body>
+</html>
